@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;700&family=Kelly+Slab&family=Ruslan+Display&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #1a1a1a;
@@ -289,6 +289,15 @@
                 el.style.opacity = '0';
                 setTimeout(() => {
                     el.textContent = el.getAttribute(`data-${currentLang}`);
+                    
+                    if (currentLang === 'ru') {
+                        
+                        el.style.fontFamily = "'Cormorant Garamond', cursive";
+                    } else {
+                        
+                        el.style.fontFamily = el.classList.contains('carved-text') ? "'Cinzel', serif" : "'Inter', sans-serif";
+                    }
+                    
                     el.style.opacity = '1';
                 }, 500);
             });
