@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;700&family=Kelly+Slab&family=Ruslan+Display&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;700&family=Kelly+Slab&family=Ruslan+Display&family=Playfair+Display:wght@700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #1a1a1a;
@@ -82,9 +82,49 @@
         .float-anim {
             animation: float 6s ease-in-out infinite;
         }
+
+        /* Modal Animation */
+        #workModal {
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+            opacity: 0;
+            visibility: hidden;
+        }
+        #workModal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #workModal .stone-texture {
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: scale(0.9) translateY(20px);
+        }
+        #workModal.active .stone-texture {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Carousel Navigation Buttons */
+        .nav-btn {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
     </style>
 </head>
 <body class="p-4">
+
+    <!-- Language Toggle Button -->
+    <div class="fixed top-6 right-6 z-[110]">
+        <button id="langToggle" class="stone-button px-4 py-2 rounded-full flex items-center space-x-2 group">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400 group-hover:text-amber-500 transition-colors"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span class="carved-text text-xs tracking-tighter text-stone-200">
+                <span id="langLabel">RU</span>
+            </span>
+        </button>
+    </div>
 
     <!-- Hero Section -->
     <div class="min-h-screen flex flex-col justify-between max-w-3xl mx-auto py-12">
@@ -169,7 +209,7 @@
         </div>
 
         <a href="#gallery" class="flex flex-col items-center space-y-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
-            <span class="carved-text text-[10px] tracking-[0.4em] uppercase text-stone-400">Примеры работ</span>
+            <span class="carved-text text-[10px] tracking-[0.4em] uppercase text-stone-400 translatable transition-opacity duration-500" data-ru="Примеры работ" data-en="examples of work">examples of work</span>
             <div class="animate-bounce">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-500"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
             </div>
@@ -178,10 +218,16 @@
 
     <!-- Gallery Section -->
     <div id="gallery" class="max-w-4xl mx-auto space-y-12 pb-32 pt-8">
-        <!-- Item 1 -->
-        <div class="stone-texture p-4 rounded-3xl overflow-hidden group">
+        <!-- Item 1: Five-storey building -->
+        <div class="stone-texture p-4 rounded-3xl overflow-hidden group cursor-pointer gallery-item" 
+             data-imgs='["https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154524208.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154530905.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154540197.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154544663.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154550676.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154556175.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154600624.jpg", "https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/legimency-2026-04-23-154604520.jpg"]'
+             data-title-en="An old snow-covered five-storey building"
+             data-title-ru="Старая советская заснеженная пятиэтажка"
+             data-desc-en="The project took approximately six months and is the most ambitious and technically complex scene I've created. I focused on realistic texturing, layered scene depth, and meticulous lighting to convey atmosphere and scale. Special attention was given to the detailed reconstruction of the house and the small objects that enhance the scene's realism."
+             data-desc-ru="Проект занял около полугода — это самая масштабная и технологично сложная сцена из моего портфолио. Я работал над реалистичными текстурами, многослойной глубиной сцены и тонкой настройкой освещения, чтобы передать атмосферу и масштаб пространства. Особое внимание уделял детальному воссозданию дома и мелким объектам, которые повышают правдоподобие композиции."
+             data-link="https://www.artstation.com/artwork/qJqAWe">
             <div class="overflow-hidden rounded-2xl border border-stone-800">
-                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/1.jpg" alt="Work 1" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105 cursor-zoom-in">
+                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/1.jpg" alt="Work 1" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
             </div>
             <div class="mt-6 px-4 text-left">
                 <h3 class="carved-text text-xl text-stone-200 transition-opacity duration-500 translatable" 
@@ -193,10 +239,13 @@
             </div>
         </div>
 
-        <!-- Item 2 -->
-        <div class="stone-texture p-4 rounded-3xl overflow-hidden group">
+        <!-- Other items -->
+        <div class="stone-texture p-4 rounded-3xl overflow-hidden group cursor-pointer gallery-item" 
+             data-imgs='["https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/2.jpg"]'
+             data-title-en="A small room in the attic"
+             data-title-ru="Маленькая комната на чердаке">
             <div class="overflow-hidden rounded-2xl border border-stone-800">
-                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/2.jpg" alt="Work 2" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105 cursor-zoom-in">
+                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/2.jpg" alt="Work 2" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
             </div>
             <div class="mt-6 px-4 text-left">
                 <h3 class="carved-text text-xl text-stone-200 transition-opacity duration-500 translatable"
@@ -208,10 +257,12 @@
             </div>
         </div>
 
-        <!-- Item 3 -->
-        <div class="stone-texture p-4 rounded-3xl overflow-hidden group">
+        <div class="stone-texture p-4 rounded-3xl overflow-hidden group cursor-pointer gallery-item"
+             data-imgs='["https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/3.jpg"]'
+             data-title-en="Weapon concept"
+             data-title-ru="Концепт оружия">
             <div class="overflow-hidden rounded-2xl border border-stone-800">
-                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/3.jpg" alt="Work 3" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105 cursor-zoom-in">
+                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/3.jpg" alt="Work 3" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
             </div>
             <div class="mt-6 px-4 text-left">
                 <h3 class="carved-text text-xl text-stone-200 transition-opacity duration-500 translatable"
@@ -223,10 +274,12 @@
             </div>
         </div>
 
-        <!-- Item 4 -->
-        <div class="stone-texture p-4 rounded-3xl overflow-hidden group">
+        <div class="stone-texture p-4 rounded-3xl overflow-hidden group cursor-pointer gallery-item"
+             data-imgs='["https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/4.jpg"]'
+             data-title-en="Preparing to the winter (my mascot)"
+             data-title-ru="Готовимся к зиме, это мой маскот">
             <div class="overflow-hidden rounded-2xl border border-stone-800">
-                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/4.jpg" alt="Work 4" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105 cursor-zoom-in">
+                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/4.jpg" alt="Work 4" class="w-full h-auto object-cover grayscale-[30%] group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105">
             </div>
             <div class="mt-6 px-4 text-left">
                 <h3 class="carved-text text-xl text-stone-200 transition-opacity duration-500 translatable"
@@ -239,51 +292,141 @@
         </div>
     </div>
 
-    <!-- Modal for Preview -->
-    <div id="imageModal" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center p-4 cursor-zoom-out">
-        <button class="absolute top-6 right-6 text-stone-400 hover:text-white transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-        </button>
-        <img id="modalImg" src="" alt="Preview" class="max-w-full max-h-full rounded-lg shadow-2xl border border-stone-800 transition-transform duration-300">
+    <!-- Modal for Detailed Info -->
+    <div id="workModal" class="fixed inset-0 bg-black/40 backdrop-blur-xl z-[100] flex overflow-y-auto">
+        <div class="min-h-screen w-full flex items-center justify-center p-4 md:p-8 pointer-events-none">
+            <div class="stone-texture w-full max-w-4xl rounded-[2rem] overflow-hidden relative flex flex-col shadow-[0_0_80px_rgba(0,0,0,0.9)] border border-stone-700/50 pointer-events-auto">
+                
+                <!-- Action Buttons (Top Right) -->
+                <div class="absolute top-4 right-4 z-50 flex flex-col space-y-3">
+                    <!-- Close Button -->
+                    <button onclick="history.back()" class="p-2 bg-stone-900/60 backdrop-blur-md rounded-full hover:bg-stone-700 transition-all text-stone-400 hover:text-white hover:scale-110 shadow-lg border border-stone-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                    </button>
+                    <!-- ArtStation Project Link -->
+                    <a id="modalProjectLink" href="#" target="_blank" class="p-2 bg-stone-900/60 backdrop-blur-md rounded-full hover:bg-stone-700 transition-all text-stone-400 hover:text-white hover:scale-110 shadow-lg border border-stone-800 flex items-center justify-center">
+                        <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/logoArt.png" alt="View on ArtStation" class="w-6 h-6 object-contain grayscale group-hover:grayscale-0">
+                    </a>
+                </div>
+
+                <!-- Top: Carousel -->
+                <div class="w-full relative flex items-center justify-center h-[45vh] md:h-[55vh] border-b border-stone-800 bg-[#2a2a2a] overflow-hidden" style="background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');">
+                    <div id="carouselBg" class="absolute inset-0 opacity-20 scale-110 blur-2xl pointer-events-none transition-opacity duration-1000" style="background-image: url(''); background-size: cover; background-position: center;"></div>
+                    <img id="carouselImg" src="" class="relative z-10 w-full h-full object-contain transition-opacity duration-1000" alt="Work detail">
+
+                    <!-- Carousel Controls -->
+                    <button id="prevBtn" class="nav-btn absolute left-4 p-3 rounded-full text-white z-20 hidden hover:scale-110 active:scale-95">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                    </button>
+                    <button id="nextBtn" class="nav-btn absolute right-4 p-3 rounded-full text-white z-20 hidden hover:scale-110 active:scale-95">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                    </button>
+                    
+                    <!-- Image Counter -->
+                    <div id="imgCounter" class="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-black/60 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 border border-stone-800 z-20">1 / 8</div>
+                </div>
+
+                <!-- Bottom: Information -->
+                <div class="w-full p-6 md:p-8 text-center relative">
+                    <div class="absolute inset-0 bg-stone-900/40 pointer-events-none"></div>
+                    <div class="relative z-10">
+                        <h2 id="modalTitle" class="carved-text text-2xl md:text-4xl text-stone-100 translatable mb-2" data-en="" data-ru=""></h2>
+                        <div class="h-[1px] w-16 bg-gradient-to-r from-transparent via-stone-600 to-transparent mx-auto mb-4"></div>
+                        <p id="modalDesc" class="text-stone-300 text-base md:text-xl leading-snug translatable max-w-4xl mx-auto italic font-medium" data-en="" data-ru=""></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        const modal = document.getElementById('imageModal');
-        const modalImg = document.getElementById('modalImg');
-        const galleryImages = document.querySelectorAll('#gallery img');
+        const modal = document.getElementById('workModal');
+        const carouselImg = document.getElementById('carouselImg');
+        const carouselBg = document.getElementById('carouselBg');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalProjectLink = document.getElementById('modalProjectLink');
+        const counter = document.getElementById('imgCounter');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        let currentImgIndex = 0;
+        let currentImgs = [];
 
-        const openModal = (src) => {
-            modal.classList.remove('hidden');
-            modalImg.src = src;
+        const updateCarousel = () => {
+            carouselImg.style.opacity = '0';
+            if(carouselBg) carouselBg.style.opacity = '0';
+            
+            setTimeout(() => {
+                const newSrc = currentImgs[currentImgIndex];
+                carouselImg.src = newSrc;
+                if(carouselBg) carouselBg.style.backgroundImage = `url('${newSrc}')`;
+                
+                carouselImg.style.opacity = '1';
+                if(carouselBg) carouselBg.style.opacity = '0.2';
+                counter.textContent = `${currentImgIndex + 1} / ${currentImgs.length}`;
+            }, 500); 
+            
+            prevBtn.style.display = currentImgs.length > 1 ? 'block' : 'none';
+            nextBtn.style.display = currentImgs.length > 1 ? 'block' : 'none';
+        };
+
+        const openModal = (item) => {
+            currentImgs = JSON.parse(item.getAttribute('data-imgs'));
+            currentImgIndex = 0;
+            
+            modalTitle.setAttribute('data-en', item.getAttribute('data-title-en'));
+            modalTitle.setAttribute('data-ru', item.getAttribute('data-title-ru'));
+            modalTitle.textContent = modalTitle.getAttribute(`data-${currentLang}`);
+            
+            const dEn = item.getAttribute('data-desc-en') || "Work in progress description...";
+            const dRu = item.getAttribute('data-desc-ru') || "Описание в процессе написания...";
+            modalDesc.setAttribute('data-en', dEn);
+            modalDesc.setAttribute('data-ru', dRu);
+            modalDesc.textContent = modalDesc.getAttribute(`data-${currentLang}`);
+
+            const projectLink = item.getAttribute('data-link');
+            if (projectLink) {
+                modalProjectLink.href = projectLink;
+                modalProjectLink.style.display = 'flex';
+            } else {
+                modalProjectLink.style.display = 'none';
+            }
+            
+            updateCarousel();
+            
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             history.pushState({ modalOpen: true }, "");
         };
 
         const closeModal = () => {
-            modal.classList.add('hidden');
+            modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         };
 
-        galleryImages.forEach(img => {
-            img.addEventListener('click', () => openModal(img.src));
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', () => openModal(item));
         });
 
-        modal.addEventListener('click', () => {
-            if (!modal.classList.contains('hidden')) history.back();
-        });
+        prevBtn.onclick = (e) => { e.stopPropagation(); currentImgIndex = (currentImgIndex - 1 + currentImgs.length) % currentImgs.length; updateCarousel(); };
+        nextBtn.onclick = (e) => { e.stopPropagation(); currentImgIndex = (currentImgIndex + 1) % currentImgs.length; updateCarousel(); };
 
         window.addEventListener('popstate', closeModal);
-
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) history.back();
+            if (!modal.classList.contains('active')) return;
+            if (e.key === 'Escape') history.back();
+            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextBtn.click();
         });
 
         // Universal Translation Logic
-        const translatables = document.querySelectorAll('.translatable');
+        const langToggle = document.getElementById('langToggle');
+        const langLabel = document.getElementById('langLabel');
         let currentLang = 'en';
 
-        setInterval(() => {
-            currentLang = currentLang === 'en' ? 'ru' : 'en';
+        const updateLanguage = () => {
+            const translatables = document.querySelectorAll('.translatable');
             
             translatables.forEach(el => {
                 el.style.opacity = '0';
@@ -291,17 +434,22 @@
                     el.textContent = el.getAttribute(`data-${currentLang}`);
                     
                     if (currentLang === 'ru') {
-                        
                         el.style.fontFamily = "'Cormorant Garamond', cursive";
+                        langLabel.textContent = 'EN';
                     } else {
-                        
                         el.style.fontFamily = el.classList.contains('carved-text') ? "'Cinzel', serif" : "'Inter', sans-serif";
+                        langLabel.textContent = 'RU';
                     }
                     
                     el.style.opacity = '1';
-                }, 500);
+                }, 300); // Чуть быстрее для ручного переключения
             });
-        }, 5000);
+        };
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'en' ? 'ru' : 'en';
+            updateLanguage();
+        });
     </script>
 </body>
 </html>
