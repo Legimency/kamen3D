@@ -121,7 +121,7 @@
         <button id="langToggle" class="stone-button px-4 py-2 rounded-full flex items-center space-x-2 group">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400 group-hover:text-amber-500 transition-colors"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             <span class="carved-text text-xs tracking-tighter text-stone-200">
-                <span id="langLabel">RU</span>
+                <span id="langLabel">EN</span>
             </span>
         </button>
     </div>
@@ -428,6 +428,9 @@
         const updateLanguage = () => {
             const translatables = document.querySelectorAll('.translatable');
             
+            // Обновляем текст кнопки на ТЕКУЩИЙ язык
+            langLabel.textContent = currentLang.toUpperCase();
+
             translatables.forEach(el => {
                 el.style.opacity = '0';
                 setTimeout(() => {
@@ -435,14 +438,12 @@
                     
                     if (currentLang === 'ru') {
                         el.style.fontFamily = "'Cormorant Garamond', cursive";
-                        langLabel.textContent = 'EN';
                     } else {
                         el.style.fontFamily = el.classList.contains('carved-text') ? "'Cinzel', serif" : "'Inter', sans-serif";
-                        langLabel.textContent = 'RU';
                     }
                     
                     el.style.opacity = '1';
-                }, 300); // Чуть быстрее для ручного переключения
+                }, 300);
             });
         };
 
