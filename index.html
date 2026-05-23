@@ -102,15 +102,26 @@
         }
 
         .nav-btn {
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.4);
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255,255,255,0.1);
             transition: all 0.3s;
         }
         .nav-btn:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.2);
+            border-color: rgba(255,255,255,0.4);
         }
+        /* Invisible Click Zones */
+        .click-zone {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 70px; /* Уменьшено до 70px (стрелочка + запас) */
+            z-index: 15;
+            cursor: pointer;
+        }
+        .click-zone-left { left: 0; }
+        .click-zone-right { right: 0; }
     </style>
 </head>
 <body class="p-4">
@@ -279,9 +290,16 @@
                 </div>
                 <div class="w-full relative flex items-center justify-center h-[45vh] md:h-[55vh] border-b border-stone-800 bg-[#2a2a2a] overflow-hidden" style="background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');">
                     <div id="carouselBg" class="absolute inset-0 opacity-20 scale-110 blur-2xl pointer-events-none transition-opacity duration-1000"></div>
+                    
+                    <!-- Click Zones for Main Carousel -->
+                    <div id="zonePrev" class="click-zone click-zone-left"></div>
+                    <div id="zoneNext" class="click-zone click-zone-right"></div>
+                    
                     <img id="carouselImg" src="" class="relative z-10 w-full h-full object-contain transition-opacity duration-1000 cursor-zoom-in" alt="Work detail">
-                    <button id="prevBtn" class="nav-btn absolute left-4 p-3 rounded-full text-white z-20 hidden hover:scale-110 active:scale-95"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-                    <button id="nextBtn" class="nav-btn absolute right-4 p-3 rounded-full text-white z-20 hidden hover:scale-110 active:scale-95"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                    
+                    <button id="prevBtn" class="nav-btn absolute left-4 p-2 rounded-full text-white z-20 hidden hover:scale-105 active:scale-95"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+                    <button id="nextBtn" class="nav-btn absolute right-4 p-2 rounded-full text-white z-20 hidden hover:scale-105 active:scale-95"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button>
+                    
                     <div id="imgCounter" class="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-black/60 text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 border border-stone-800 z-20 text-center">1 / 8</div>
                 </div>
                 <div class="w-full p-6 md:p-8 text-center relative">
@@ -297,10 +315,26 @@
     </div>
 
     <!-- Full Screen Image Modal -->
-    <div id="fullScreenModal" class="fixed inset-0 bg-black/95 z-[150] opacity-0 invisible transition-all duration-300 flex items-center justify-center p-0">
-        <button onclick="history.back()" class="absolute top-6 right-6 z-[160] p-3 bg-stone-900/60 backdrop-blur-md rounded-full text-white hover:bg-stone-700 transition-all shadow-2xl border border-stone-800">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    <div id="fullScreenModal" class="fixed inset-0 bg-black/95 z-[150] opacity-0 invisible transition-all duration-300 flex items-center justify-center p-0 select-none">
+        
+        <!-- Click Zones for Full Screen -->
+        <div id="fsZonePrev" class="click-zone click-zone-left z-[155]"></div>
+        <div id="fsZoneNext" class="click-zone click-zone-right z-[155]"></div>
+
+        <!-- Controls -->
+        <div class="absolute top-6 right-6 z-[160] flex items-center space-x-4">
+            <button onclick="history.back()" class="p-3 bg-stone-900/60 backdrop-blur-md rounded-full text-white hover:bg-stone-700 transition-all shadow-2xl border border-stone-800">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+
+        <button id="fsPrevBtn" class="nav-btn absolute left-4 md:left-8 p-2 rounded-full text-white z-[160] hidden hover:scale-105 active:scale-95">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
+        <button id="fsNextBtn" class="nav-btn absolute right-4 md:right-8 p-2 rounded-full text-white z-[160] hidden hover:scale-105 active:scale-95">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+
         <img id="fullScreenImg" src="" class="max-w-full max-h-full object-contain cursor-zoom-out" onclick="history.back()">
     </div>
 
@@ -308,6 +342,8 @@
         const modal = document.getElementById('workModal');
         const fsModal = document.getElementById('fullScreenModal');
         const fsImg = document.getElementById('fullScreenImg');
+        const fsPrevBtn = document.getElementById('fsPrevBtn');
+        const fsNextBtn = document.getElementById('fsNextBtn');
         const carouselImg = document.getElementById('carouselImg');
         const carouselBg = document.getElementById('carouselBg');
         const modalTitle = document.getElementById('modalTitle');
@@ -322,6 +358,12 @@
 
         const updateCarousel = (animate = true) => {
             const newSrc = currentImgs[currentImgIndex];
+            
+            // Sync full screen image if it's open
+            if (fsModal.classList.contains('opacity-100')) {
+                fsImg.src = newSrc;
+            }
+
             if (!animate) {
                 carouselImg.classList.remove('transition-opacity');
                 if(carouselBg) carouselBg.classList.remove('transition-opacity');
@@ -345,8 +387,12 @@
                     counter.textContent = `${currentImgIndex + 1} / ${currentImgs.length}`;
                 }, 500);
             }
-            prevBtn.style.display = currentImgs.length > 1 ? 'block' : 'none';
-            nextBtn.style.display = currentImgs.length > 1 ? 'block' : 'none';
+            
+            const hasMultiple = currentImgs.length > 1;
+            prevBtn.style.display = hasMultiple ? 'block' : 'none';
+            nextBtn.style.display = hasMultiple ? 'block' : 'none';
+            fsPrevBtn.style.display = hasMultiple ? 'block' : 'none';
+            fsNextBtn.style.display = hasMultiple ? 'block' : 'none';
         };
 
         const openModal = (item) => {
@@ -385,15 +431,32 @@
             document.body.style.overflow = 'auto';
         };
 
-        // Click to full screen
         carouselImg.addEventListener('click', openFullScreen);
 
         document.querySelectorAll('.gallery-item').forEach(item => {
             item.addEventListener('click', () => openModal(item));
         });
 
-        prevBtn.onclick = (e) => { e.stopPropagation(); currentImgIndex = (currentImgIndex - 1 + currentImgs.length) % currentImgs.length; updateCarousel(true); };
-        nextBtn.onclick = (e) => { e.stopPropagation(); currentImgIndex = (currentImgIndex + 1) % currentImgs.length; updateCarousel(true); };
+        // Combined logic for main and FS navigation
+        const nextSlide = (animate) => {
+            currentImgIndex = (currentImgIndex + 1) % currentImgs.length;
+            updateCarousel(animate);
+        };
+        const prevSlide = (animate) => {
+            currentImgIndex = (currentImgIndex - 1 + currentImgs.length) % currentImgs.length;
+            updateCarousel(animate);
+        };
+
+        prevBtn.onclick = (e) => { e.stopPropagation(); prevSlide(true); };
+        nextBtn.onclick = (e) => { e.stopPropagation(); nextSlide(true); };
+        fsPrevBtn.onclick = (e) => { e.stopPropagation(); prevSlide(false); };
+        fsNextBtn.onclick = (e) => { e.stopPropagation(); nextSlide(false); };
+
+        // Attach logic to click zones
+        document.getElementById('zonePrev').onclick = (e) => { e.stopPropagation(); prevSlide(true); };
+        document.getElementById('zoneNext').onclick = (e) => { e.stopPropagation(); nextSlide(true); };
+        document.getElementById('fsZonePrev').onclick = (e) => { e.stopPropagation(); prevSlide(false); };
+        document.getElementById('fsZoneNext').onclick = (e) => { e.stopPropagation(); nextSlide(false); };
 
         window.addEventListener('popstate', (e) => {
             if (fsModal.classList.contains('opacity-100')) {
@@ -404,14 +467,18 @@
         });
 
         document.addEventListener('keydown', (e) => {
-            if (fsModal.classList.contains('opacity-100')) {
-                if (e.key === 'Escape') history.back();
-                return;
+            const isFS = fsModal.classList.contains('opacity-100');
+            const isActive = modal.classList.contains('active');
+            
+            if (!isFS && !isActive) return;
+
+            if (e.key === 'Escape') {
+                history.back();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide(!isFS);
+            } else if (e.key === 'ArrowRight') {
+                nextSlide(!isFS);
             }
-            if (!modal.classList.contains('active')) return;
-            if (e.key === 'Escape') history.back();
-            if (e.key === 'ArrowLeft') prevBtn.click();
-            if (e.key === 'ArrowRight') nextBtn.click();
         });
 
         const langToggle = document.getElementById('langToggle');
