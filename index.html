@@ -481,6 +481,27 @@
             }
         });
 
+        // Swipe Logic
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        const handleSwipe = (animate) => {
+            const swipeThreshold = 50;
+            const diff = touchEndX - touchStartX;
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) prevSlide(animate);
+                else nextSlide(animate);
+            }
+        };
+
+        const addSwipeListener = (el, animate) => {
+            el.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+            el.addEventListener('touchend', e => { touchEndX = e.changedTouches[0].screenX; handleSwipe(animate); }, {passive: true});
+        };
+
+        addSwipeListener(carouselImg.parentElement, true);
+        addSwipeListener(fsModal, false);
+
         const langToggle = document.getElementById('langToggle');
         const langLabel = document.getElementById('langLabel');
         const updateLanguage = () => {
