@@ -122,8 +122,11 @@
             transition: opacity 0.3s ease;
             opacity: 0;
         }
-        .click-zone:hover {
-            opacity: 1;
+        /* Эффект подсветки только для устройств с мышкой */
+        @media (hover: hover) {
+            .click-zone:hover {
+                opacity: 1;
+            }
         }
         .click-zone-left { 
             left: 0; 
