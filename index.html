@@ -111,17 +111,28 @@
             background: rgba(255,255,255,0.2);
             border-color: rgba(255,255,255,0.4);
         }
-        /* Invisible Click Zones */
+        /* Click Zones with Hover Highlight */
         .click-zone {
             position: absolute;
             top: 0;
             bottom: 0;
-            width: 70px; /* Уменьшено до 70px (стрелочка + запас) */
+            width: 70px;
             z-index: 15;
             cursor: pointer;
+            transition: opacity 0.3s ease;
+            opacity: 0;
         }
-        .click-zone-left { left: 0; }
-        .click-zone-right { right: 0; }
+        .click-zone:hover {
+            opacity: 1;
+        }
+        .click-zone-left { 
+            left: 0; 
+            background: linear-gradient(to right, rgba(255,255,255,0.07), transparent);
+        }
+        .click-zone-right { 
+            right: 0; 
+            background: linear-gradient(to left, rgba(255,255,255,0.07), transparent);
+        }
     </style>
 </head>
 <body class="p-4">
@@ -336,6 +347,9 @@
         </button>
 
         <img id="fullScreenImg" src="" class="max-w-full max-h-full object-contain cursor-zoom-out" onclick="history.back()">
+        
+        <!-- Full Screen Counter -->
+        <div id="fsImgCounter" class="absolute bottom-8 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-black/60 text-[11px] font-bold uppercase tracking-[0.2em] text-stone-400 border border-stone-800 z-[160]">1 / 8</div>
     </div>
 
     <script>
@@ -350,6 +364,7 @@
         const modalDesc = document.getElementById('modalDesc');
         const modalProjectLink = document.getElementById('modalProjectLink');
         const counter = document.getElementById('imgCounter');
+        const fsCounter = document.getElementById('fsImgCounter');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         let currentImgIndex = 0;
@@ -371,7 +386,9 @@
                 if(carouselBg) carouselBg.style.backgroundImage = `url('${newSrc}')`;
                 carouselImg.style.opacity = '1';
                 if(carouselBg) carouselBg.style.opacity = '0.2';
-                counter.textContent = `${currentImgIndex + 1} / ${currentImgs.length}`;
+                const countText = `${currentImgIndex + 1} / ${currentImgs.length}`;
+                counter.textContent = countText;
+                if(fsCounter) fsCounter.textContent = countText;
                 setTimeout(() => {
                     carouselImg.classList.add('transition-opacity');
                     if(carouselBg) carouselBg.classList.add('transition-opacity');
@@ -416,6 +433,7 @@
 
         const openFullScreen = () => {
             fsImg.src = currentImgs[currentImgIndex];
+            if(fsCounter) fsCounter.textContent = `${currentImgIndex + 1} / ${currentImgs.length}`;
             fsModal.classList.remove('invisible');
             fsModal.classList.add('opacity-100');
             history.pushState({ fullScreen: true }, "");
