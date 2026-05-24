@@ -161,14 +161,15 @@
                 <p class="text-stone-500 font-light italic uppercase tracking-widest text-sm">Digital Sculpting & Design</p>
             </div>
 
-            <div class="space-y-4 max-w-[500px] mx-auto w-full px-2">
-                <a href="https://www.artstation.com/legimency" target="_blank" class="stone-button block w-full p-4 sm:p-5 rounded-xl group transition-all relative overflow-hidden text-left">
+            <div class="space-y-4 max-w-[520px] mx-auto w-full px-2">
+                <!-- ArtStation -->
+                <a href="https://www.artstation.com/legimency" target="_blank" class="stone-button block w-full p-5 sm:p-6 rounded-xl group transition-all relative overflow-hidden text-left">
                     <div class="flex items-center justify-between relative z-10">
                         <div class="flex items-center space-x-3 sm:space-x-4 pr-2">
                             <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/logoArt.png" alt="ArtStation" class="w-7 h-7 sm:w-8 sm:h-8 object-contain grayscale group-hover:grayscale-0 transition-all duration-300 shrink-0">
-                            <div class="flex flex-col">
+                            <div class="flex flex-col justify-center min-h-[44px]">
                                 <span class="carved-text text-base sm:text-lg rune-glow">ARTSTATION</span>
-                                <span class="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider transition-opacity duration-500 translatable whitespace-normal md:whitespace-nowrap leading-tight" data-en="full works" data-ru="полноценные работы">full works</span>
+                                <span class="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider transition-opacity duration-500 translatable whitespace-normal md:whitespace-nowrap leading-tight btn-desc block" data-en="full works" data-ru="полноценные работы">full works</span>
                             </div>
                         </div>
                         <div class="flex items-center shrink-0">
@@ -180,31 +181,40 @@
                         </div>
                     </div>
                 </a>
-                <a href="https://t.me/kamen3D" target="_blank" class="stone-button block w-full p-5 rounded-xl group transition-all relative overflow-hidden text-left">
-                    <div class="flex items-center justify-between relative z-10">
-                        <div class="flex items-center space-x-4 pr-4">
-                            <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/telegram.png" alt="Telegram" class="w-8 h-8 object-contain grayscale group-hover:grayscale-0 transition-all duration-300 shrink-0">
-                            <div class="flex flex-col">
-                                <span class="carved-text text-lg rune-glow">TELEGRAM</span>
-                                <span class="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider transition-opacity duration-500 translatable whitespace-normal md:whitespace-nowrap leading-tight" data-en="work in progress and everything else" data-ru="работы в процессе и все остальное">work in progress and everything else</span>
-                            </div>
-                        </div>
-                        <div class="flex items-center shrink-0">
-                            <div class="opacity-100 translate-x-0 md:opacity-0 md:translate-x-4 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-300 flex items-center bg-amber-500 text-amber-950 px-2 py-1 rounded md:mr-4 mr-2 shadow-lg shrink-0">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                                <span class="text-[10px] font-bold tracking-tighter uppercase whitespace-nowrap">НУЖЕН VPN</span>
-                            </div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-600 group-hover:translate-x-1 transition-transform"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
-                        </div>
+                <!-- Telegram Wrapper -->
+                <div class="relative group/tg">
+                    <!-- QR Code (Desktop only) -->
+                    <div class="hidden md:block absolute -left-[28rem] top-[40%] -translate-y-1/2 w-96 h-96 opacity-0 -translate-x-12 group-hover/tg:opacity-100 group-hover/tg:translate-x-0 transition-all duration-700 pointer-events-none drop-shadow-[0_0_40px_rgba(0,0,0,0.7)]">
+                        <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/крКодКамень.png" alt="Telegram QR" class="w-full h-full object-contain">
+                        <div class="absolute -right-12 top-1/2 -translate-y-1/2 text-stone-600 text-5xl font-light select-none">&gt;</div>
                     </div>
-                </a>
-                <a href="https://www.youtube.com/@legimency" target="_blank" class="stone-button block w-full p-5 rounded-xl group transition-all relative overflow-hidden text-left">
+
+                    <a href="https://t.me/kamen3D" target="_blank" class="stone-button block w-full p-5 sm:p-6 rounded-xl group transition-all relative overflow-hidden text-left">
+                        <div class="flex items-center justify-between relative z-10">
+                            <div class="flex items-center space-x-4 pr-4">
+                                <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/telegram.png" alt="Telegram" class="w-8 h-8 object-contain grayscale group-hover:grayscale-0 transition-all duration-300 shrink-0">
+                                <div class="flex flex-col justify-center min-h-[44px]">
+                                    <span class="carved-text text-lg rune-glow">TELEGRAM</span>
+                                    <span class="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider transition-opacity duration-500 translatable whitespace-normal md:whitespace-nowrap leading-tight btn-desc block" data-en="work in progress and everything else" data-ru="работы в процессе и все остальное">work in progress and everything else</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center shrink-0">
+                                <div class="opacity-100 translate-x-0 md:opacity-0 md:translate-x-4 md:group-hover:opacity-100 md:group-hover:translate-x-0 transition-all duration-300 flex items-center bg-amber-500 text-amber-950 px-2 py-1 rounded md:mr-4 mr-2 shadow-lg shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mr-1"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                                    <span class="text-[10px] font-bold tracking-tighter uppercase whitespace-nowrap">НУЖЕН VPN</span>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-600 group-hover:translate-x-1 transition-transform"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <a href="https://www.youtube.com/@legimency" target="_blank" class="stone-button block w-full p-5 sm:p-6 rounded-xl group transition-all relative overflow-hidden text-left">
                     <div class="flex items-center justify-between relative z-10">
                         <div class="flex items-center space-x-4 pr-4">
                             <img src="https://raw.githubusercontent.com/Legimency/photosForPortfolio/refs/heads/main/youtubeIcon.png" alt="YouTube" class="w-8 h-8 object-contain grayscale group-hover:grayscale-0 transition-all duration-300 shrink-0">
-                            <div class="flex flex-col">
+                            <div class="flex flex-col justify-center min-h-[44px]">
                                 <span class="carved-text text-lg rune-glow">YOUTUBE</span>
-                                <span class="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider transition-opacity duration-500 translatable whitespace-normal md:whitespace-nowrap leading-tight" data-en="mega cool videos" data-ru="мега крутые видео">mega cool videos</span>
+                                <span class="text-[9px] sm:text-[10px] text-stone-500 uppercase tracking-wider transition-opacity duration-500 translatable whitespace-normal md:whitespace-nowrap leading-tight btn-desc block" data-en="mega cool videos" data-ru="мега крутые видео">mega cool videos</span>
                             </div>
                         </div>
                         <div class="flex items-center shrink-0">
@@ -219,7 +229,7 @@
             </div>
         </div>
         <a href="#gallery" class="flex flex-col items-center space-y-2 opacity-60 hover:opacity-100 transition-opacity cursor-pointer">
-            <span class="carved-text text-[10px] tracking-[0.4em] uppercase text-stone-400 translatable transition-opacity duration-500" data-ru="Примеры работ" data-en="examples of work">examples of work</span>
+            <span class="carved-text text-[13px] tracking-[0.4em] uppercase text-stone-400 translatable transition-opacity duration-500" data-ru="Примеры работ" data-en="examples of work">examples of work</span>
             <div class="animate-bounce">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-500"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
             </div>
@@ -531,8 +541,19 @@
                 el.style.opacity = '0';
                 setTimeout(() => {
                     el.textContent = el.getAttribute(`data-${currentLang}`);
-                    if (currentLang === 'ru') { el.style.fontFamily = "'Cormorant Garamond', cursive"; } 
-                    else { el.style.fontFamily = el.classList.contains('carved-text') ? "'Cinzel', serif" : "'Inter', sans-serif"; }
+                    if (currentLang === 'ru') { 
+                        el.style.fontFamily = "'Cormorant Garamond', cursive";
+                        if (el.classList.contains('btn-desc')) {
+                            el.style.fontSize = '12px';
+                            el.style.lineHeight = '1'; // Фиксируем высоту строки
+                        }
+                    } else { 
+                        el.style.fontFamily = el.classList.contains('carved-text') ? "'Cinzel', serif" : "'Inter', sans-serif";
+                        if (el.classList.contains('btn-desc')) {
+                            el.style.fontSize = ''; 
+                            el.style.lineHeight = '';
+                        }
+                    }
                     el.style.opacity = '1';
                 }, 300);
             });
